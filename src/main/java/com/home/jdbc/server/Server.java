@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class Server extends BaseServer {
 
     public static void readNames(int portNumber) {
         try {
@@ -16,10 +16,8 @@ public class Server {
             Socket clientSocket = serverSocket.accept();
             System.out.println("server listens on port: " + serverSocket);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                System.out.println("input: " + inputLine);
-                PersonDAO.updateName(inputLine);
+            while ((input = in.readLine()) != null) {
+                PersonDAO.updateName(BaseServer.input);
             }
         } catch (IOException e) {
             System.err.println("server fail: " + e.getMessage());
